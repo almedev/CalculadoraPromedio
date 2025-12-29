@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>INSTITUCIÓN EDUCATIVA AGROPECUARIO MUNICIPAL</title>
+    <link rel="icon" type="image/png" href="colegio.png">
+
+    <style>
+
+        h1, h2, p {
+    text-align: center; /* Alinea el texto horizontalmente al centro */
+    color: rgb(3, 3, 3); /* Estilo adicional para ver el efecto */
+                }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .contenedor {
+            background: white;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        /* Video de fondo: cubre toda la ventana pero queda detrás del contenido */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .header-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .header-img {
+            width: 3.2rem;
+            height: 3.2rem;
+            object-fit: contain;
+            display: block;
+        }
+        .header-text {
+            text-align: center;
+        }
+        .header-text h1 {
+            margin: 0;
+            line-height: 1;
+        }
+        .header-text h2 {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #444;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .resultado {
+            margin-top: 15px;
+        }
+        .copyright {
+            text-align: center;
+            background-color: white;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<video id="bg-video" autoplay muted loop playsinline>
+    <source src="background.mp4" type="video/mp4">
+    Tu navegador no soporta video de fondo.
+</video>
+
+<div class="contenedor">
+
+    <div class="header-row">
+        <img src="colegio.png" alt="Logo izquierdo" class="header-img">
+        <div class="header-text">
+            <h1>INSTITUCIÓN EDUCATIVA AGROPECUARIO MUNICIPAL</h1>
+            <h2>Calculadora de promedio final por materia</h2>
+        </div>
+        <img src="1507138917.png" alt="Logo derecho" class="header-img">
+    </div>
+
+    <label>Nota período 1 (30%)</label>
+    <input type="number" id="nota1" min="1" max="10" step="0.1">
+
+    <label>Nota período 2 (30%)</label>
+    <input type="number" id="nota2" min="1" max="10" step="0.1">
+
+    <label>Nota período 3 (40%)</label>
+    <input type="number" id="nota3" min="1" max="10" step="0.1">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="resultado" id="resultado"></div>
+
+    <img src="sembra.png" alt="Imagen Sembra" style="display: block; margin: 10px auto; max-width: 100%; height: auto;">
+    <p class="copyright">&copy; 2025 Desarrollado por Jorge Hernan Aldana Melo. Todos los derechos reservados.</p>
+</div>
+
+<script>
+function calcular() {
+    let n1 = parseFloat(document.getElementById("nota1").value);
+    let n2 = parseFloat(document.getElementById("nota2").value);
+    let n3 = parseFloat(document.getElementById("nota3").value);
+
+    if (isNaN(n1) || isNaN(n2) || isNaN(n3)) {
+        document.getElementById("resultado").innerText =
+            "Por favor ingrese todas las notas.";
+        return;
+    }
+
+    if (n1 < 0 || n1 > 10 || n2 < 0 || n2 > 10 || n3 < 0 || n3 > 10) {
+        document.getElementById("resultado").innerText =
+            "Las notas deben estar entre 1 y 10.";
+        return;
+    }
+
+    let notaFinal = (n1 * 0.30) + (n2 * 0.30) + (n3 * 0.40);
+    let mensaje = "Nota final: " + notaFinal.toFixed(2);
+
+    if (notaFinal >= 6) {
+        mensaje += " – Aprueba la materia";
+    } else {
+        mensaje += " – Desaprueba la materia";
+    }
+
+    document.getElementById("resultado").innerText = mensaje;
+}
+</script>
+
+</body>
+</html>
